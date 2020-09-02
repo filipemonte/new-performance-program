@@ -1,0 +1,13 @@
+{
+    "api": {
+        "port": 3001,
+        "jwtsecret": ""
+    },
+    "db": {
+        "user": "",
+        "host": "",
+        "database": "",
+        "password": "",
+        "port": 5432
+    }
+}
