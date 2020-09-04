@@ -4,7 +4,85 @@ import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import PersonalRecord from '../../components/personal-record';
 
+import Chart from 'react-apexcharts'
+import authHeader from '../../auth/auth-header';
+import authService from '../../auth/auth-service';
+import { trackPromise } from 'react-promise-tracker';
+import { myConfig } from '../../config';
+
+
 class PR extends React.Component {
+  constructor(props) {
+    super(props);
+
+    console.log('cons')
+    this.state = {
+
+      series: [{
+        name: 'Treinos Programados',
+        data: []
+      }, {
+        name: 'Treinos Realizados',
+        data: []
+      },],
+      options: {
+        chart: {
+          id: 'teste',
+          type: 'bar',
+          stacked: false,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          },
+        },
+        stroke: {
+          width: 0.4,
+          colors: ['#fff']
+        },
+        xaxis: {
+          categories: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        },
+        fill: {
+          opacity: 1
+        },
+        legend: {
+          position: 'bottom',
+          horizontalAlign: 'center',
+          offsetX: 40
+        }
+      },
+
+
+    };
+  }
+
+  async componentDidMount() {
+    console.log('componentDidMount')
+
+    const newSeries = [];
+    const categories = [];
+
+    await fetch(`${myConfig.apiUrl}/chartTreinosRealizados/${authService.getCurrentUser().id}`, { headers: authHeader() })
+      .then(res => res.json())
+      .then((resultado) => {
+
+        categories.push(resultado.meses)
+        newSeries.push({ data: resultado.programados, name: "Treinos Programados" })
+        newSeries.push({ data: resultado.realizados, name: "Treinos Realizados" })
+      })
+      .catch(console.log)
+
+
+    var options = { ...this.state.options }
+    options.xaxis.categories = categories;
+    this.setState({ options: options })
+
+    this.setState({
+      series: newSeries
+    })
+  }
+
 
   render() {
     return (
@@ -14,8 +92,18 @@ class PR extends React.Component {
           <Navbar></Navbar>
           <div className="content">
             <div className="row">
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <PersonalRecord></PersonalRecord>
+              </div>
+              <div className="col-md-6">
+                <div className="card ">
+                  <div className="card-header ">
+                    <h5 className="card-title">Treinos Realizados</h5>
+                  </div>
+                  <div className="card-body ">
+                    <Chart options={this.state.options} series={this.state.series} type="bar"height="500px" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

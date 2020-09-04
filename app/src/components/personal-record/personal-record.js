@@ -10,6 +10,8 @@ import authService from '../../auth/auth-service';
 import './personal-record.css';
 
 
+
+
 class personalRecord extends Component {
   constructor(props) {
     super(props);
@@ -63,14 +65,14 @@ function ListaPR(param) {
       <ul id="list" className="list-group lista-pr">
         {param.param.map(item => (
           <li key={item.id} className="list-group-item">
-            <span className="movimento chart">{item.nome}</span>
-            <Link to={`/prdetail/${item.id}`} className="btn btn-icon-adicionar btn-icon-adicionar-chart pull-right" >
+            <span className="movimento ">{item.nome}</span>
+            <Link to={`/prdetail/${item.id}`} className="btn btn-icon-adicionar pull-right" >
               <span className="glyphicon glyphicon-edit" />
             </Link>
             {item.resultado != null ? (
-              <span className="resultado-pr pull-right chart">{item.resultado} lb</span>
+              <span className="resultado-pr pull-right ">{item.resultado} lb</span>
             ) : (
-                <span className="resultado-pr pull-right chart"></span>
+                <span className="resultado-pr pull-right "></span>
               )}
 
             {item.resultado != null ? (

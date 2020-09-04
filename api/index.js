@@ -40,6 +40,7 @@ app.get('/api/planilhas/:idCoach', db.getPlanilhas)
 app.get('/api/planilha/:idPlanilha', db.getPlanilha)
 app.get('/api/planilhasatleta/:idCoach', db.getPlanilhasAtletas)
 app.get('/api/treinoplanilha/:idPlanilha/:selectedDate', db.getTreinoPlanilha)
+app.get('/api/chartTreinosRealizados/:idAtleta', db.getChartTreinosRealizados)
 
 
 app.put('/api/atleta/:idAtleta', db.updateAtleta);

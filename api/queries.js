@@ -511,6 +511,63 @@ const loginUser = (request, response) => {
     })
 }
 
+const getChartTreinosRealizados = (request, response) => {
+
+    var infoChart = {
+        meses: [],
+        realizados: [],
+        programados: []
+    };
+
+
+    var anoAtual = new Date().getFullYear()
+    var date_start = new Date(anoAtual, 0)     // remember months start with 0
+    var date_end = new Date(anoAtual, 11)       // remember months start with 0
+    var date_count = date_start
+
+
+    pool.query(`SELECT treino.id, treino.data, treinoatleta.done
+    FROM treino 
+    inner join exerciciostreino on treino.id = exerciciostreino.idtreino
+    left join treinoatleta on treino.id = treinoatleta.idtreino and treinoatleta.idatleta =  18
+    WHERE
+    treino.idplanilha = (select idplanilha from planilhaatleta where idAtleta = 18)`, (error, results) => {
+        if (error) {
+            throw error
+        }
+        if (results.rows.length > 0) {
+
+            var mesAtual = new Date().getMonth();
+
+            while (date_count <= date_end) {
+
+                var mesIteracao = date_count.getMonth();
+
+                treinosMes = results.rows.filter(a=> new Date(a.data).getMonth() == mesIteracao);
+                treinosConcluidos = treinosMes.filter(a=> a.done);
+
+                if (date_count.getMonth() <= new Date().getMonth()) {
+                    infoChart.realizados.push(treinosConcluidos.length)
+                    infoChart.programados.push(treinosMes.length)
+                }
+                else {
+                    infoChart.realizados.push(0)
+                    infoChart.programados.push(0)
+                }
+                date_count.setMonth(date_count.getMonth() + 1)
+            }
+        }
+
+        return response.json(infoChart);
+
+    })
+}
+
+function filterData(value)
+{
+
+}
+
 const gerarToken = (id) => {
     var token = jwt.sign({ id }, config.get('api.jwtsecret'), {
         expiresIn: 1200 // expires in 5min
@@ -518,6 +575,7 @@ const gerarToken = (id) => {
 
     return token;
 }
+
 
 module.exports = {
     getCoachs,
@@ -537,6 +595,7 @@ module.exports = {
     getPlanilhasAtletas,
     getProgramTrainingDates,
     getTreinoPlanilha,
+    getChartTreinosRealizados,
 
     updateAtleta,
     updateCoach,
