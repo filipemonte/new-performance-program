@@ -100,7 +100,7 @@ class Atletas extends React.Component {
                       <tbody>
                         {this.state.atletas.map(item => (
                           <tr key={item.id}>
-                            <td>{item.nome} ({item.email})</td>
+                            <td>{item.nome}</td>
                             <td>{item.planilha}</td>
                             <td>
                               <Switch

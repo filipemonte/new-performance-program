@@ -26,35 +26,35 @@ app.listen(port, () => {
 })
 
 app.get('/api/coachs', verifyJWT, db.getCoachs)
-app.get('/api/users', db.getUsers)
-app.get('/api/user/:id', db.getUser)
-app.get('/api/training/:idAtleta/:selectedDate', db.getTraining)
-app.get('/api/trainingDates/:idAtleta', db.getTrainingDates)
-app.get('/api/programtrainingdates/:idProgram', db.getProgramTrainingDates)
-app.get('/api/atleta/:idAtleta', db.getAtleta)
-app.get('/api/atletas/:idCoach', db.getAtletas)
-app.get('/api/personalrecord/:idAtleta', db.getPR)
-app.get('/api/personalrecordhistory/:idAtleta/:idMovimento', db.getPRHistory)
-app.get('/api/coach/:idCoach', db.getPerfilTreinador)
-app.get('/api/planilhas/:idCoach', db.getPlanilhas)
-app.get('/api/planilha/:idPlanilha', db.getPlanilha)
-app.get('/api/planilhasatleta/:idCoach', db.getPlanilhasAtletas)
-app.get('/api/treinoplanilha/:idPlanilha/:selectedDate', db.getTreinoPlanilha)
-app.get('/api/chartTreinosRealizados/:idAtleta', db.getChartTreinosRealizados)
+app.get('/api/users', verifyJWT, db.getUsers)
+app.get('/api/user/:id', verifyJWT, db.getUser)
+app.get('/api/training/:idAtleta/:selectedDate', verifyJWT, db.getTraining)
+app.get('/api/trainingDates/:idAtleta', verifyJWT, db.getTrainingDates)
+app.get('/api/programtrainingdates/:idProgram', verifyJWT, db.getProgramTrainingDates)
+app.get('/api/atleta/:idAtleta', verifyJWT, db.getAtleta)
+app.get('/api/atletas/:idCoach', verifyJWT, db.getAtletas)
+app.get('/api/personalrecord/:idAtleta', verifyJWT, db.getPR)
+app.get('/api/personalrecordhistory/:idAtleta/:idMovimento', verifyJWT, db.getPRHistory)
+app.get('/api/coach/:idCoach', verifyJWT, db.getPerfilTreinador)
+app.get('/api/planilhas/:idCoach', verifyJWT, db.getPlanilhas)
+app.get('/api/planilha/:idPlanilha', verifyJWT, db.getPlanilha)
+app.get('/api/planilhasatleta/:idCoach', verifyJWT, db.getPlanilhasAtletas)
+app.get('/api/treinoplanilha/:idPlanilha/:selectedDate', verifyJWT, db.getTreinoPlanilha)
+app.get('/api/chartTreinosRealizados/:idAtleta', verifyJWT, db.getChartTreinosRealizados)
 
 
-app.put('/api/atleta/:idAtleta', db.updateAtleta);
-app.put('/api/statusatleta/:idAtleta', db.updateStatusAtleta);
-app.put('/api/coach/:idCoach', db.updateCoach);
-app.put('/api/planilha/:idPlanilha', db.updatePlanilha);
+app.put('/api/atleta/:idAtleta', verifyJWT, db.updateAtleta);
+app.put('/api/statusatleta/:idAtleta', verifyJWT, db.updateStatusAtleta);
+app.put('/api/coach/:idCoach', verifyJWT, db.updateCoach);
+app.put('/api/planilha/:idPlanilha', verifyJWT, db.updatePlanilha);
 
-app.post('/api/prhistory/:idAtleta/:idMovimento', db.insertPRHistory);
-app.post('/api/planilha/:idCoach', db.insertPlanilha);
-app.post('/api/treino/:idCoach/:idPlanilha/:idPlanilhaAtleta', db.insertTreino);
-app.post('/api/treinodone/:idAtleta', db.insertTreinoDone);
+app.post('/api/prhistory/:idAtleta/:idMovimento', verifyJWT, db.insertPRHistory);
+app.post('/api/planilha/:idCoach', verifyJWT, db.insertPlanilha);
+app.post('/api/treino/:idCoach/:idPlanilha/:idPlanilhaAtleta', verifyJWT, db.insertTreino);
+app.post('/api/treinodone/:idAtleta', verifyJWT, db.insertTreinoDone);
 
-app.delete('/api/prhistory/:idAtleta/:idMovimento', db.deletePRHistory);
-app.delete('/api/planilha/:idCoach/:idPlanilha', db.deletePlanilha);
+app.delete('/api/prhistory/:idAtleta/:idMovimento', verifyJWT, db.deletePRHistory);
+app.delete('/api/planilha/:idCoach/:idPlanilha', verifyJWT, db.deletePlanilha);
 
 
 //authentication
