@@ -7,7 +7,7 @@ import Navbar from '../../components/navbar';
 import CalendarioAtleta from '../../components/calendario-atleta';
 import TreinoAtleta from '../../components/treino-atleta';
 import Footer from '../../components/footer';
-
+import { userContext } from '../../userContext';
 
 
 class HomeAtleta extends React.Component {
@@ -18,6 +18,10 @@ class HomeAtleta extends React.Component {
       date: moment().format('YYYY-MM-DD'),
       count: 0
     };
+  }
+
+  componentDidMount() {
+    this.context.toggleMenu();
   }
 
   updateDate = (date) => {
@@ -47,6 +51,7 @@ class HomeAtleta extends React.Component {
     );
   }
 }
+HomeAtleta.contextType = userContext;
 
 export default HomeAtleta;
 

@@ -75,6 +75,11 @@ class ProgramacaoAtleta extends React.Component {
                      events={
                        this.state.datasTreino
                      }
+                     headerToolbar={{
+                      left: 'title',
+                      center: '',
+                      right: 'prev,next'
+                  }}
                     />
                   </div>
                 </div>

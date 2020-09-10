@@ -3,7 +3,8 @@ const userContext = React.createContext({
   user: {},
   loginUser: () => {},
   loginOAuth: () => {},
-  logoutUser: () => {}
+  logoutUser: () => {},
+  toggleMenu: () => {}
 }); // Create a context object
 
 export {

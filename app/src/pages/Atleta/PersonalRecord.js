@@ -9,6 +9,8 @@ import authHeader from '../../auth/auth-header';
 import authService from '../../auth/auth-service';
 import { trackPromise } from 'react-promise-tracker';
 import { myConfig } from '../../config';
+import { userContext } from '../../userContext';
+
 
 
 class PR extends React.Component {
@@ -58,6 +60,7 @@ class PR extends React.Component {
   }
 
   async componentDidMount() {
+    this.context.toggleMenu();
     console.log('componentDidMount')
 
     const newSeries = [];
@@ -113,6 +116,7 @@ class PR extends React.Component {
     );
   }
 }
+PR.contextType = userContext;
 
 export default PR;
 

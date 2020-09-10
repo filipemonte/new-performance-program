@@ -2,10 +2,15 @@ import React from 'react';
 import Menu from '../../components/menu';
 import Navbar from '../../components/navbar';
 import ListaPlanilhas from '../../components/lista-planilhas';
+import { userContext } from '../../userContext';
+
 
 class PlanilhasAtleta extends React.Component {
   
-
+  componentDidMount() {
+    this.context.toggleMenu();
+  }
+  
   render() {
     return (
       <div>
@@ -20,6 +25,8 @@ class PlanilhasAtleta extends React.Component {
     );
   }
 }
+PlanilhasAtleta.contextType = userContext;
+
 
 export default PlanilhasAtleta;
 

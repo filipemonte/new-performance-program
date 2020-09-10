@@ -5,6 +5,7 @@ import { trackPromise } from 'react-promise-tracker';
 import { Link } from 'react-router-dom'
 import { myConfig } from '../../config';
 import authHeader from '../../auth/auth-header';
+import { userContext } from '../../userContext';
 
 class GerenciarPlanilhas extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class GerenciarPlanilhas extends React.Component {
   }
   componentDidMount() {
     this.setState({ fetched: false })
+    this.context.toggleMenu();
   }
 
   componentDidUpdate(prevState) {
@@ -86,6 +88,7 @@ class GerenciarPlanilhas extends React.Component {
     );
   }
 }
+GerenciarPlanilhas.contextType = userContext;
 
 export default GerenciarPlanilhas;
 

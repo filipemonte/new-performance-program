@@ -56,6 +56,11 @@ class CalendarioAtleta extends Component {
               events={
                 this.state.events
               }
+              headerToolbar={{
+                left: 'title',
+                center: '',
+                right: 'prev,next'
+            }}
             />
           </div>
         </div>

@@ -2,8 +2,13 @@ import React from 'react';
 import Menu from '../../components/menu';
 import Navbar from '../../components/navbar';
 import FormPerfilAtleta from '../../components/form-perfil-atleta';
+import { userContext } from '../../userContext';
 
 class PerfilAtleta extends React.Component {
+
+  componentDidMount() {
+    this.context.toggleMenu();
+  }
 
   render() {
     return (
@@ -21,6 +26,7 @@ class PerfilAtleta extends React.Component {
     );
   }
 }
+PerfilAtleta.contextType = userContext;
 
 export default PerfilAtleta;
 

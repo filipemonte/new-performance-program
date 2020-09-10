@@ -2,8 +2,13 @@ import React from 'react';
 import Menu from '../../components/menu';
 import Navbar from '../../components/navbar';
 import FormPerfilTreinador from '../../components/form-perfil-treinador';
+import { userContext } from '../../userContext';
+
 
 class PerfilTreinador extends React.Component {
+  componentDidMount() {
+    this.context.toggleMenu();
+  }
 
   render() {
     return (
@@ -21,6 +26,9 @@ class PerfilTreinador extends React.Component {
     );
   }
 }
+
+PerfilTreinador.contextType = userContext;
+
 
 export default PerfilTreinador;
 

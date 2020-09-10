@@ -528,10 +528,10 @@ const getChartTreinosRealizados = (request, response) => {
 
     pool.query(`SELECT treino.id, treino.data, treinoatleta.done
     FROM treino 
-    inner join exerciciostreino on treino.id = exerciciostreino.idtreino
     left join treinoatleta on treino.id = treinoatleta.idtreino and treinoatleta.idatleta =  18
     WHERE
-    treino.idplanilha = (select idplanilha from planilhaatleta where idAtleta = 18)`, (error, results) => {
+    treino.data >= '${anoAtual}-01-01' and treino.data <= '${anoAtual}-12-31' and
+    treino.idplanilha = (select idplanilha from planilhaatleta where idAtleta = ${request.params.idAtleta})`, (error, results) => {
         if (error) {
             throw error
         }
@@ -570,7 +570,7 @@ function filterData(value)
 
 const gerarToken = (id) => {
     var token = jwt.sign({ id }, config.get('api.jwtsecret'), {
-        expiresIn: 1200 // expires in 5min
+        expiresIn: 3600 // expires in 5min
     });
 
     return token;

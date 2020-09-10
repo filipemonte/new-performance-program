@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import HomeAtleta from './pages/Atleta/HomeAtleta';
 import PersonalRecord from './pages/Atleta/PersonalRecord';
@@ -21,6 +21,10 @@ import authService from './auth/auth-service';
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router';
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -31,12 +35,15 @@ class App extends React.Component {
       loginUser: this.loginUser,
       logoutUser: this.logoutUser,
       loginOAuth: this.loginOAuth,
-      errorMessage: ''
+      toggleMenu: this.toggleMenu,
+      errorMessage: '',
+      classNav: '"nav-open"'
     };
 
     this.logoutUser = this.logoutUser.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.loginOAuth = this.loginOAuth.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
   loginOAuth = (event) => {
@@ -75,6 +82,17 @@ class App extends React.Component {
     window.location.href = '/';
   };
 
+  toggleMenu = () =>  {
+    if (this.state.classNav == "")
+    {
+      this.setState({classNav: "nav-open"})    
+    }
+    else
+    {
+      this.setState({classNav: ""})    
+    }
+  }
+
   render() {
     let routes;
     if (!authService.isAuthenticated()) {
@@ -111,11 +129,14 @@ class App extends React.Component {
     }
 
     return (
+      
+      <div className={this.state.classNav}>
       <BrowserRouter>
         <userContext.Provider value={this.state}>
           {routes}
         </userContext.Provider>
       </BrowserRouter>
+      </div>
 
     );
   }

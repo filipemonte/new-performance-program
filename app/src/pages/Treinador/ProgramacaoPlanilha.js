@@ -7,6 +7,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction";
 import { myConfig } from '../../config';
 import authHeader from '../../auth/auth-header';
+import { userContext } from '../../userContext';
+
 
 class ProgramacaoPlanilha extends React.Component {
   constructor(props) {
@@ -72,6 +74,11 @@ class ProgramacaoPlanilha extends React.Component {
                       events={
                        this.state.datasTreino
                      }
+                     headerToolbar={{
+                      left: 'title',
+                      center: '',
+                      right: 'prev,next'
+                  }}
                     />
                   </div>
                 </div>

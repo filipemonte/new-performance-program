@@ -11,6 +11,8 @@ import Footer from '../../components/footer';
 import { myConfig } from '../../config';
 import authHeader from '../../auth/auth-header';
 import authService from '../../auth/auth-service';
+import { userContext } from '../../userContext';
+
 
 
 
@@ -29,6 +31,7 @@ class Atletas extends React.Component {
 
   componentDidMount() {
     this.setState({ fetched: false })
+    this.context.toggleMenu();
   }
 
   componentDidUpdate(prevState) {
@@ -100,7 +103,7 @@ class Atletas extends React.Component {
                       <tbody>
                         {this.state.atletas.map(item => (
                           <tr key={item.id}>
-                            <td>{item.nome} ({item.email})</td>
+                            <td>{item.nome}</td>
                             <td>{item.planilha}</td>
                             <td>
                               <Switch
@@ -135,6 +138,7 @@ class Atletas extends React.Component {
     );
   }
 }
+Atletas.contextType = userContext;
 
 export default Atletas;
 
