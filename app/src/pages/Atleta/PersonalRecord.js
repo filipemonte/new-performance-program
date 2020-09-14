@@ -10,7 +10,7 @@ import authService from '../../auth/auth-service';
 import { trackPromise } from 'react-promise-tracker';
 import { myConfig } from '../../config';
 import { userContext } from '../../userContext';
-
+import ReactToPrint from 'react-to-print';
 
 
 class PR extends React.Component {
@@ -96,7 +96,15 @@ class PR extends React.Component {
           <div className="content">
             <div className="row">
               <div className="col-md-6">
-                <PersonalRecord></PersonalRecord>
+              <ReactToPrint
+                trigger={() => {
+                  // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+                  // to the root node of the returned component as it will be overwritten.
+                  return <a href="#">Exportar (PDF)</a>;
+                }}
+                content={() => this.componentRef}
+              />
+                <PersonalRecord ref={el => (this.componentRef = el)}></PersonalRecord>
               </div>
               <div className="col-md-6">
                 <div className="card ">
